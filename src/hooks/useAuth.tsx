@@ -37,10 +37,35 @@ function AuthProvider({ children }: AuthProviderData) {
   const [userToken, setUserToken] = useState('');
 
   // get CLIENT_ID from environment variables
+  const { CLIENT_ID } = process.env;
+
+  useEffect(() => {
+    // api.defaults.headers.common['Client-Id'] = CLIENT_ID;
+
+    // console.log(api.defaults.headers.common['Client-Id'] )
+  }, [])
 
   async function signIn() {
     try {
       // set isLoggingIn to true
+      setIsLoggingIn(true);
+
+      const REDIRECT_URI = '';
+      const RESPONSE_TYPE = '';
+      const SCOPE = '';
+      const FORCE_VERIFY = '';
+      const STATE = '';
+
+      const authUrl = twitchEndpoints.authorization + 
+        `?client_id=${CLIENT_ID}` + 
+        `&redirect_uri=${REDIRECT_URI}` + 
+        `&response_type=${RESPONSE_TYPE}` + 
+        `&scope=${SCOPE}` + 
+        `&force_verify=${FORCE_VERIFY}` +
+        `&state=${STATE}`;
+      
+
+      
 
       // REDIRECT_URI - create OAuth redirect URI using makeRedirectUri() with "useProxy" option set to true
       // RESPONSE_TYPE - set to "token"
@@ -68,6 +93,8 @@ function AuthProvider({ children }: AuthProviderData) {
         // set userToken state with response's access_token from startAsync
     } catch (error) {
       // throw an error
+      throw new Error(error);
+      
     } finally {
       // set isLoggingIn to false
     }
